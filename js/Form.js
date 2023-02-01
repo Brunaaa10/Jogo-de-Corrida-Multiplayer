@@ -20,6 +20,12 @@ class Form {
     this.greeting.class('greeting')
   }
 
+  hide(){
+    this.playButton.hide();
+    this.greeting.hide();
+    this.input.hide();
+  }
+
   display(){
     this.setElementsPosition();
     this.setElementsStyle();
@@ -34,9 +40,12 @@ class Form {
         var message = `Bem-Vindo ${this.input.value()}!!<br> 
         Aguarde os próximos jogadores!`
         this.greeting.html(message);
-
+        playerCount += 1;
+        
         player.name = this.input.value();
-        player.index = 1;
+        player.index = playerCount;
+
+        player.updateCount(playerCount);
       }
     )
   }

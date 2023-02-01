@@ -9,4 +9,16 @@ class Player {
     this.rank = 0;
     this.score = 0;
   }
+
+  getCount(){
+    database.ref("playerCount").on("value", data =>{
+      playerCount = data.val();
+    })
+  }
+
+  updateCount(count){
+    database.ref("/").update({
+      playerCount: count
+    })
+  }
 }
