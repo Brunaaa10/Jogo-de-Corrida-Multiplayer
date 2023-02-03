@@ -21,4 +21,43 @@ class Player {
       playerCount: count
     })
   }
+
+  addPlayer(){
+    if(this.index == 1){
+      this.positionX = width/2 - 100
+    }else{
+      this.positionX = width/2 + 100
+    }
+
+    var playerIndex = "players/player" + this.index
+    database.ref(playerIndex).set({
+      name: this.name,
+      positionX: this.positionX,
+      positionY: this.positionY
+    })
+  }
+
+  getDistance(){
+    var playerIndex = "players/player" + this.index
+    database.ref(playerIndex).on("value", (data)=> {
+      var data = data.val();
+      this.positionX = data.positionX
+      this.positionY = data.positionY
+    })
+  }
+
+  update(){
+    var playerIndex = "players/player" + this.index
+    database.ref(playerIndex).update({
+      positionX: this.positionX,
+      positionY: this.positionY
+    })
+  }
+
+  static getPlayersInfo(){
+    database.ref("players").on("value", (data)=> {
+      allPlayers = data.val();
+    })
+  }
+
 }
