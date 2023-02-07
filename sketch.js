@@ -8,12 +8,17 @@ var track, car1Img, car2Img;
 var car1, car2;
 var cars = []
 var allPlayers;
+var coinImg, fuelImg;
+var coins, fuels;
 
 function preload() {
   backgroundImage = loadImage("./assets/planodefundo.png");
   track = loadImage("./assets/track.jpg");
   car1Img = loadImage("./assets/car1.png");
   car2Img = loadImage("./assets/car2.png");
+
+  coinImg = loadImage("./assets/goldCoin.png");
+  fuelImg = loadImage("./assets/fuel.png");
 }
 
 

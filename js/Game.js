@@ -18,6 +18,25 @@ class Game {
     car2.scale = 0.07;
 
     cars = [car1,car2]
+
+    fuels = new Group();
+    coins = new Group();
+
+    this.addSprites(fuels, 4, fuelImg, 0.02);
+    this.addSprites(coins, 18, coinImg, 0.09);
+  }
+
+  addSprites(spriteGroup, numberOfSprites, spriteImg, scale){
+    for(var i = 0; i < numberOfSprites; i ++){
+      let x, y;
+      x = random(width/2 + 150, width/2 - 150);
+      y = random(- height * 4.5, height - 400);
+
+      var sprite = createSprite(x,y);
+      sprite.addImage(spriteImg);
+      sprite.scale = scale;
+      spriteGroup.add(sprite);
+    }
   }
 
    handleElements(){
@@ -55,6 +74,18 @@ class Game {
 
         cars[index - 1].position.x = x
         cars[index - 1].position.y = y
+
+        if(index == player.index){
+          stroke(10);
+          fill("red");
+          ellipse(x,y,60,60);
+
+          camera.position.y = cars[index - 1].position.y;
+          // camera.position.x = cars[index - 1].position.x
+
+          this.handleFuel(index);
+          this.handleCoins(index);
+        }
       }
 
       drawSprites();
@@ -66,6 +97,33 @@ class Game {
       player.positionY += 10
       player.update();
     }
+
+    if(keyIsDown(RIGHT_ARROW)){
+      player.positionX += 5
+      player.update();
+    }
+
+    if(keyIsDown(LEFT_ARROW)){
+      player.positionX -= 5
+      player.update();
+    }
+
+   }
+
+
+   handleFuel(index){
+    cars[index - 1].overlap(fuels, function (collector, collected){
+      player.fuel = 185
+      collected.remove();
+    });
+   }
+
+   handleCoins(index){
+    cars[index - 1].overlap(coins, function (collector, collected){
+      player.score += 21;
+      player.update();
+      collected.remove();
+    })
    }
 
 }
