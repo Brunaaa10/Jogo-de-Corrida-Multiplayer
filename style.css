@@ -79,7 +79,7 @@ canvas {
 }
 
 .resetText{
-  font-size: 20px;
+  font-size: 25px;
   color: white;
   font-family: vollkorn;
   text-align: center;
@@ -87,5 +87,11 @@ canvas {
    1px 1px 0 red,
    1px -1px 0 red,
   -1px -1px 0 red;
-  
+}
+
+.leadersText{
+  font-size: 20px;
+  color:#FFFF;
+  font-family: vollkorn;
+  text-align: center;
 }
