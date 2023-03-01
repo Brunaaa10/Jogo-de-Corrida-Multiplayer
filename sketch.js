@@ -10,6 +10,7 @@ var cars = []
 var allPlayers;
 var coinImg, fuelImg;
 var coins, fuels;
+var lifeImage;
 
 function preload() {
   backgroundImage = loadImage("./assets/planodefundo.png");
@@ -19,6 +20,7 @@ function preload() {
 
   coinImg = loadImage("./assets/goldCoin.png");
   fuelImg = loadImage("./assets/fuel.png");
+  lifeImage = loadImage("./assets/life.png");
 }
 
 

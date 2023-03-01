@@ -5,6 +5,7 @@ class Game {
     this.leaderBordTitle = createElement("h2");
     this.leader1 = createElement("h2");
     this.leader2 = createElement("h2");
+    this.playerMove = false;
   }
 
   start() {
@@ -91,6 +92,8 @@ class Game {
       image(track, 0,-height * 5, width, height * 6);
       this.handlePlayerControls();
       this.showLeaderBord();
+      this.showLife();
+      this.showFuelBar();
 
       var index = 0;
 
@@ -101,6 +104,11 @@ class Game {
 
         cars[index - 1].position.x = x
         cars[index - 1].position.y = y
+
+        if(this.playerMove = true){
+          player.positionY += 5
+          player.update();
+        }
 
         if(index == player.index){
           stroke(10);
@@ -131,6 +139,7 @@ class Game {
    handlePlayerControls(){
     if(keyIsDown(UP_ARROW)){
       player.positionY += 10
+      this.playerMove = true;
       player.update();
     }
 
@@ -153,6 +162,13 @@ class Game {
       player.fuel = 185
       collected.remove();
     });
+    if(player.fuel > 0 && this.playerMove){
+      player.fuel -= 0.3;
+    }
+    if(player.fuel <= 0){
+      gameState = 2;
+      this.gameOver();
+    }
    }
 
    handleCoins(index){
@@ -202,4 +218,35 @@ class Game {
     });
    }
 
+   showLife(){
+    push()
+    image(lifeImage, width/2 - 130, height - player.positionY - 350, 20, 20);
+    fill("#FFFFFF");
+    rect(width/2 - 100, height - player.positionY - 350, 185, 20);
+    fill("#F50057");
+    rect(width/2 - 100, height - player.positionY - 350, player.life, 20);
+    noStroke();
+    pop()
+   }
+
+   showFuelBar(){
+    push()
+    image(fuelImg, width/2 - 130, height - player.positionY - 300, 20, 20);
+    fill("#FFFFFF");
+    rect(width/2 - 100, height - player.positionY - 300, 185, 20);
+    fill("#FFC400");
+    rect(width/2 -100, height - player.positionY - 300, player.fuel, 20);
+    noStroke();
+    pop()
+   }
+
+   gameOver(){
+    swal({
+      title: `Fim de jogo!!`,
+      text: "Seu combustível acabou",
+      imageUrl: "https://cdn.shopify.com/s/files/1/1061/1924/products/Thumbs_Down_Sign_Emoji_Icon_ios10_grande.png",
+      imageSize: "100x100",
+      confirmButtonText: "Obrigada por jogar"
+    });
+   }
 }
