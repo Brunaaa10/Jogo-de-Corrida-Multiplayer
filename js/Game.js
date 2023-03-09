@@ -6,6 +6,7 @@ class Game {
     this.leader1 = createElement("h2");
     this.leader2 = createElement("h2");
     this.playerMove = false;
+    this.leftKeyActive = true;
   }
 
   start() {
@@ -59,7 +60,7 @@ class Game {
       if (positions.length > 0) { 
         x = positions[i].x; 
         y = positions[i].y; 
-        spriteImage = positions[i].image;
+        spriteImg = positions[i].image;
       } else {
       x = random(width/2 + 150, width/2 - 150);
       y = random(- height * 4.5, height - 400);
@@ -148,6 +149,7 @@ class Game {
 
           this.handleFuel(index);
           this.handleCoins(index);
+          this.handleObstacleCollision(index);
         }
       }
 
@@ -175,11 +177,15 @@ class Game {
       player.positionX += 5
       player.update();
 
+      this.leftKeyActive = false;
+
     }
 
     if(keyIsDown(LEFT_ARROW) && player.positionX > width/3 - 50){
       player.positionX -= 5
       player.update();
+
+      this.leftKeyActive = true;
     }
 
    }
@@ -205,6 +211,28 @@ class Game {
       player.update();
       collected.remove();
     })
+   }
+
+   handleObstacleCollision(index){
+    if(cars[index - 1].collide(obstacle1) || cars[index - 1].collide(obstacle2)){
+      if(this.leftKeyActive){
+        player.positionX += 100;
+      } else {
+        player.positionX -= 100;
+      }
+      
+      if(player.life > 0){
+        player.life -= 185/4
+      }
+
+      if(player.life <= 0){
+        gameState = 2;
+        this.gameOver2();
+      }
+
+      player.update();
+    }
+
    }
 
    handleResetGame(){
@@ -277,4 +305,17 @@ class Game {
       confirmButtonText: "Obrigada por jogar"
     });
    }
+
+   gameOver2(){
+    swal({
+      title: `Fim de jogo!!`,
+      text: "Sua vida chegou ao fim!!",
+      imageUrl: "https://cdn.shopify.com/s/files/1/1061/1924/products/Thumbs_Down_Sign_Emoji_Icon_ios10_grande.png",
+      imageSize: "100x100",
+      confirmButtonText: "Obrigada por jogar"
+    });
+   }
+
+
+   
 }
