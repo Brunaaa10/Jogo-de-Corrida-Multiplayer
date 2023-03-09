@@ -11,6 +11,9 @@ var allPlayers;
 var coinImg, fuelImg;
 var coins, fuels;
 var lifeImage;
+var fuelImage, powerCoinImage,obstacle1,obstacle1Image;
+var obstacle2, obstacle2Image;
+
 
 function preload() {
   backgroundImage = loadImage("./assets/planodefundo.png");
@@ -21,6 +24,9 @@ function preload() {
   coinImg = loadImage("./assets/goldCoin.png");
   fuelImg = loadImage("./assets/fuel.png");
   lifeImage = loadImage("./assets/life.png");
+
+  obstacle1Image = loadImage("./assets/obstacle1.png");
+  obstacle2Image = loadImage("./assets/obstacle2.png");
 }
 
 

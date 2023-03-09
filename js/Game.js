@@ -26,16 +26,44 @@ class Game {
 
     fuels = new Group();
     coins = new Group();
+    obstacle1 = new Group();
+    obstacle2 = new Group();
+
+    var obstacle1Positions = [ 
+    { x: width / 2 - 150, y: height - 1300, image: obstacle1Image }, 
+    { x: width / 2 + 250, y: height - 1800, image: obstacle1Image },
+    { x: width / 2 - 180, y: height - 3300, image: obstacle1Image },
+    { x: width / 2 - 150, y: height - 4300, image: obstacle1Image },
+    { x: width / 2, y: height - 5300, image: obstacle1Image }, 
+    ];
+
+    var obstacle2Positions = [ 
+    { x: width / 2 + 250, y: height - 800, image: obstacle2Image },
+    { x: width / 2 - 180, y: height - 2300, image: obstacle2Image },
+    { x: width / 2, y: height - 2800, image: obstacle2Image },
+    { x: width / 2 + 180, y: height - 3300, image: obstacle2Image },
+    { x: width / 2 + 250, y: height - 3800, image: obstacle2Image }, 
+    { x: width / 2 + 250, y: height - 4800, image: obstacle2Image },
+    { x: width / 2 - 180, y: height - 5500, image: obstacle2Image }, 
+    ];
 
     this.addSprites(fuels, 4, fuelImg, 0.02);
     this.addSprites(coins, 18, coinImg, 0.09);
+    this.addSprites(obstacle1, obstacle1Positions.length, obstacle1Image, 0.04, obstacle1Positions);
+    this.addSprites(obstacle2, obstacle2Positions.length, obstacle2Image, 0.04, obstacle2Positions);
   }
 
-  addSprites(spriteGroup, numberOfSprites, spriteImg, scale){
+  addSprites(spriteGroup, numberOfSprites, spriteImg, scale, positions = []){
     for(var i = 0; i < numberOfSprites; i ++){
-      let x, y;
+      var x, y;
+      if (positions.length > 0) { 
+        x = positions[i].x; 
+        y = positions[i].y; 
+        spriteImage = positions[i].image;
+      } else {
       x = random(width/2 + 150, width/2 - 150);
       y = random(- height * 4.5, height - 400);
+      }
 
       var sprite = createSprite(x,y);
       sprite.addImage(spriteImg);
