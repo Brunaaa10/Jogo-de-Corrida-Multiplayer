@@ -13,6 +13,7 @@ var coins, fuels;
 var lifeImage;
 var fuelImage, powerCoinImage,obstacle1,obstacle1Image;
 var obstacle2, obstacle2Image;
+var blast;
 
 
 function preload() {
@@ -27,6 +28,7 @@ function preload() {
 
   obstacle1Image = loadImage("./assets/obstacle1.png");
   obstacle2Image = loadImage("./assets/obstacle2.png");
+  blast = loadImage("./assets/blast.png");
 }
 
 
